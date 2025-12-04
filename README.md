@@ -359,55 +359,62 @@ http://<server-ip>:5000
 * SSH key → connect for deployment
 
 ---
+# 🌳 GitLab CI/CD — Tree Diagram (Visual + Emoji-rich)
 
+> A compact, interview-friendly tree diagram you can memorize quickly. Colors shown via emoji markers. 💡
+
+```
 GitLab CI/CD 🟣
 ├─ Concepts 🔑
-│ ├─ Jobs 🧩
-│ │ ├─ script: commands to run
-│ │ ├─ before_script: prepare env
-│ │ └─ image: docker image used
-│ ├─ Stages 🪜
-│ │ ├─ test
-│ │ ├─ build
-│ │ └─ deploy
-│ ├─ Runners 🏃‍♂️
-│ │ ├─ managed (gitlab.com)
-│ │ └─ self-managed
-│ ├─ Variables 🔐
-│ │ ├─ project settings → secret variables
-│ │ └─ file type (for ssh key)
-│ ├─ Images & Executors 🐳
-│ │ ├─ default image (ruby) — override with python/node/etc.
-│ │ └─ docker executor (containers)
-│ ├─ Services (e.g., dind) ⚙️
-│ └─ Artifacts / Cache 📦
+│  ├─ Jobs 🧩
+│  │  ├─ script: commands to run
+│  │  ├─ before_script: prepare env
+│  │  └─ image: docker image used
+│  ├─ Stages 🪜
+│  │  ├─ test
+│  │  ├─ build
+│  │  └─ deploy
+│  ├─ Runners 🏃‍♂️
+│  │  ├─ managed (gitlab.com)
+│  │  └─ self-managed
+│  ├─ Variables 🔐
+│  │  ├─ project settings → secret variables
+│  │  └─ file type (for ssh key)
+│  ├─ Images & Executors 🐳
+│  │  ├─ default image (ruby) — override with python/node/etc.
+│  │  └─ docker executor (containers)
+│  ├─ Services (e.g., dind) ⚙️
+│  └─ Artifacts / Cache 📦
 |
 ├─ Pipeline Flow ▶️
-│ ├─ Stage: test ✅ → run unit tests (make test)
-│ ├─ Stage: build ✅ → build docker image + push to registry
-│ └─ Stage: deploy ✅→ ssh to server, pull image, run container
+│  ├─ Stage: test ✅  → run unit tests (make test)
+│  ├─ Stage: build ✅ → build docker image + push to registry
+│  └─ Stage: deploy ✅→ ssh to server, pull image, run container
 |
 ├─ Demo App (Python) 🐍
-│ ├─ tests: app/tests (pytest via make test)
-│ ├─ Dockerfile: builds python image
-│ └─ Makefile: helpers (test, run)
+│  ├─ tests: app/tests  (pytest via make test)
+│  ├─ Dockerfile: builds python image
+│  └─ Makefile: helpers (test, run)
 |
 ├─ Build & Push (Docker-in-Docker) 🐳🐳
-│ ├─ image: docker:20.10
-│ ├─ services:
-│ │ └─ docker:20.10-dind
-│ ├─ variable: DOCKER_TLS_CERTDIR=/certs
-│ └─ before_script: docker login -u $REGISTRY_USER -p $REGISTRY_PASS
+│  ├─ image: docker:20.10
+│  ├─ services:
+│  │  └─ docker:20.10-dind
+│  ├─ variable: DOCKER_TLS_CERTDIR=/certs
+│  └─ before_script: docker login -u $REGISTRY_USER -p $REGISTRY_PASS
 |
 ├─ Deploy (SSH → Droplet) 🔐➡️🖥️
-│ ├─ Create droplet (DigitalOcean) + add SSH public key
-│ ├─ Add private key to CI/CD variables (file type: SSH_KEY)
-│ ├─ before_script: chmod 400 $SSH_KEY
-│ └─ script: ssh -i $SSH_KEY -o StrictHostKeyChecking=no root@IP "docker login && stop/remove old && docker run -d"
+│  ├─ Create droplet (DigitalOcean) + add SSH public key
+│  ├─ Add private key to CI/CD variables (file type: SSH_KEY)
+│  ├─ before_script: chmod 400 $SSH_KEY
+│  └─ script: ssh -i $SSH_KEY -o StrictHostKeyChecking=no root@IP "docker login && stop/remove old && docker run -d"
 |
 └─ Interview Flash Points ✨
-├─ What is CI vs CD? (auto test/build vs auto deploy)
-├─ Where do jobs run? (runners)
-├─ How to keep secrets safe? (CI/CD variables masked)
-├─ Why use stages? (control order / parallelism)
-└─ Docker-in-docker? (client + daemon via service dind)
+   ├─ What is CI vs CD? (auto test/build vs auto deploy)
+   ├─ Where do jobs run? (runners)
+   ├─ How to keep secrets safe? (CI/CD variables masked)
+   ├─ Why use stages? (control order / parallelism)
+   └─ Docker-in-docker? (client + daemon via service dind)
+```
+
+
